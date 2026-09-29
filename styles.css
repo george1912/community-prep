@@ -4,3 +4,52 @@
 /* Blueprint navigation uses the same window and paper palette as the deck. */
 .organization-bar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:20px}.organization-bar .field-label{font-family:var(--pixel);font-size:21px}.organization-bar p{font-size:14px;color:var(--muted);margin:4px 0 0}.organization-switch button{padding:12px 18px}.progress-caption{font-size:12px;color:var(--muted);margin:16px 0 6px}.progress-caption+.stats{margin-top:0}.browse-intro{font-size:16px;color:#3b5364}.contents-grid{display:grid;grid-template-columns:1fr 1fr;border:1px solid #8da0ad;background:#fffefa;margin:16px 0}.contents-link{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid #b9c8d1;padding:16px;min-height:88px;cursor:pointer}.contents-link:nth-child(odd){border-right:1px solid #b9c8d1}.contents-link:hover{background:#e7f0f7}.contents-link>span:nth-child(2){flex:1;min-width:0}.contents-link strong{display:block;font-family:var(--pixel);font-weight:500;font-size:19px;line-height:1.3}.contents-link small{display:block;color:var(--muted);font-size:12px;margin-top:5px}.contents-number{font-family:var(--pixel);font-size:22px;color:#688394}.blueprint-context{font-size:13px;color:var(--muted);margin:12px 0}.study-methods,.search-tools{border-top:1px solid #b8c6cf;margin-top:16px;padding-top:6px}.study-methods>summary,.search-tools>summary,.blueprint-objectives>summary,.card-previews>summary{cursor:pointer;padding:12px 0;min-height:46px;color:var(--blue);font-size:15px}.study-methods{font-size:14px}.study-methods p{margin:10px 0}.search-tools>summary span{color:var(--muted);font-size:12px;margin-left:8px}.search-tools .toolbar{margin:10px 0}.search-tools{margin-bottom:20px}.results-line{align-items:center}.compact{min-height:36px;padding:4px;font-size:13px}.topic{scroll-margin-top:16px}.conversation{padding:4px 0 16px}.conversation h4{font-size:26px;max-width:36ch;margin:0 0 10px}.conversation p{font-size:16px;color:#405666;max-width:72ch}.focus-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}.focus-card{border:1px solid #9eb2bf;border-left:4px solid var(--green);background:#f0f6fa;padding:16px;display:flex;flex-direction:column}.focus-card h4{font-size:21px;margin-bottom:10px}.focus-card>p{font-size:15px;color:#374f60;line-height:1.55}.focus-card>.text-button{margin-top:auto;text-align:left;font-size:15px;align-self:flex-start}.focus-card .coverage-note{background:#fff4d6;color:#705020;padding:12px;font-size:13px;margin:4px 0 12px;line-height:1.5}.coverage-note strong{display:block;margin-bottom:5px}.blueprint-objectives{font-size:14px;margin-bottom:18px}.blueprint-objectives ul{margin-top:4px}.card-previews{border-top:1px solid #b9c8d1}.card-previews>summary{font-family:var(--pixel);font-size:19px}.card-previews .card-grid{padding:8px 0}.back-to-contents{font-size:13px;margin-top:8px}.extra-practice{padding:22px;background:#e3edf4;border:1px solid #9eb2bf;margin-top:24px}.extra-practice h3{font-size:24px;margin-bottom:10px}.extra-practice p{font-size:15px;color:var(--muted);max-width:65ch}.extra-practice .btn{font-size:17px}#browse-heading{scroll-margin-top:16px}.study-methods ul,.blueprint-objectives ul{padding-left:24px}.study-methods li,.blueprint-objectives li{margin-bottom:6px}@media(max-width:780px){.organization-bar{align-items:flex-start;flex-direction:column;gap:12px}.organization-switch{width:100%}.organization-switch button{flex:1}.contents-link{padding:13px;gap:9px}.contents-link strong{font-size:18px}}@media(max-width:540px){.contents-grid,.focus-grid{grid-template-columns:1fr}.contents-link:nth-child(odd){border-right:0}.contents-link{min-height:74px}.contents-link:last-child{border-bottom:0}.conversation h4{font-size:24px}.organization-switch button{padding:12px;font-size:17px}.results-line{font-size:12px}.intro h2{font-size:25px}.titlebar .right{white-space:nowrap}}
 .question-size{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-bottom:14px;flex-wrap:wrap}.question-size>span{font-size:14px;color:var(--muted);margin-right:auto}.question-size .btn{padding:8px 12px;min-width:48px}.question-size .text-button{min-width:58px;font-size:14px}.question-sheet .question-text{font-size:calc(clamp(19px,2.6vw,23px) * var(--question-scale,1))}.question-sheet .option{font-size:calc(16px * var(--question-scale,1))}.question-sheet .answer-text{font-size:calc(19px * var(--question-scale,1))}.question-sheet .rationale p{font-size:calc(16px * var(--question-scale,1))}.question-sheet .option,.question-sheet .rationale,.question-sheet .reveal-zone{padding:calc(14px * var(--question-scale,1))}.question-sheet .options{gap:calc(10px * var(--question-scale,1))}.question-sheet .recall-input textarea{font-size:calc(16px * var(--question-scale,1))}
+
+/* A fixed study desk keeps the question, explanation and controls together. */
+body.quiz-active{overflow:hidden}
+.quiz-active .desktop{max-width:1440px;height:100dvh;padding:12px;display:flex;flex-direction:column}
+.quiz-active .brand,.quiz-active footer{display:none}
+.quiz-active main{flex:1;min-height:0}
+.quiz-window{height:100%;margin:0;display:flex;flex-direction:column;box-shadow:none}
+.quiz-window .titlebar{padding:6px 12px;min-height:48px}
+.quiz-window .titlebar h2{font-size:17px;flex:1}
+.quiz-back{border:1px solid #ffffff80;background:transparent;color:white;padding:8px;min-height:36px;white-space:nowrap;font-family:var(--pixel)}
+.quiz-toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 14px;font-size:13px;color:var(--muted)}
+.quiz-toolbar .question-size{margin:0;gap:6px;flex-wrap:nowrap}
+.quiz-toolbar .question-size .btn{min-height:36px;min-width:36px;padding:2px 8px}
+.quiz-toolbar .question-size .text-button{min-height:36px;min-width:44px;padding:2px}
+.quiz-workspace{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;margin:0 12px;padding:0;border:0;background:transparent;box-shadow:none}
+.quiz-question,.quiz-workspace .answer-block,.quiz-placeholder{min-height:0;overflow:auto;overscroll-behavior:contain;border:1px solid #9aabb6;background:#fffefa;padding:16px;scrollbar-gutter:stable}
+.quiz-workspace .question-text{font-size:calc(18px * var(--question-scale));line-height:1.4}
+.quiz-workspace .options{gap:8px;margin-top:14px}
+.quiz-workspace .option{padding:calc(9px * var(--question-scale));font-size:calc(15px * var(--question-scale));line-height:1.35;min-height:44px;gap:8px}
+.quiz-workspace .answer-block{margin:0;border-top:3px solid var(--green)}
+.quiz-workspace .answer-label{font-size:21px;margin-bottom:4px}
+.quiz-workspace .answer-text{font-size:calc(15px * var(--question-scale));line-height:1.4}
+.quiz-workspace .rationale{margin-top:12px;padding:10px;border-left-width:3px}
+.quiz-workspace .rationale h3{font-size:19px;margin-bottom:6px}
+.quiz-workspace .rationale p{font-size:calc(15px * var(--question-scale));line-height:1.45}
+.quiz-workspace .source-note{padding:10px;margin-top:10px;font-size:13px}
+.quiz-workspace .original{margin-top:8px}
+.quiz-placeholder{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:#e8f0f2;color:var(--muted)}
+.quiz-placeholder h3{font-size:24px;margin-bottom:10px}
+.quiz-placeholder p{font-size:15px}
+.quiz-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;flex-shrink:0}
+.quiz-controls .btn{min-height:42px;padding:8px 16px;font-size:17px}
+.quiz-controls .text-button{font-size:14px;min-height:42px}
+@media(max-width:700px){
+ .quiz-active .desktop{padding:4px}
+ .quiz-window .titlebar{padding:4px 8px;gap:8px}
+ .quiz-window .titlebar h2{font-size:14px;line-height:1.2}
+ .quiz-toolbar{padding:3px 8px;font-size:12px}
+ .quiz-workspace{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr);gap:8px;margin:0 6px}
+ .quiz-workspace.is-revealed{grid-template-rows:minmax(0,1.3fr) minmax(0,1fr)}
+ .quiz-placeholder{display:none}
+ .quiz-question,.quiz-workspace .answer-block{padding:10px}
+ .quiz-workspace .question-text{font-size:calc(16px * var(--question-scale));line-height:1.35}
+ .quiz-workspace .options{margin-top:10px;gap:6px}
+ .quiz-workspace .option{font-size:calc(14px * var(--question-scale));padding:7px}
+ .quiz-controls{padding:5px 8px;gap:6px}
+ .quiz-controls .btn{font-size:16px;padding:8px 10px}
+ .quiz-controls .text-button{font-size:12px}
+}

@@ -25,8 +25,6 @@
   let organization = saved.organization === 'topics' ? 'topics' : 'blueprint';
   let questionSize = [80, 90, 100, 110, 125, 150].includes(saved.questionSize) ? saved.questionSize : 100;
   let view = 'home';
-  let query = '';
-  let filter = 'all';
   let openTopics = new Set();
   let toastTimer;
 
@@ -54,23 +52,13 @@
     for (let i = out.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [out[i], out[j]] = [out[j], out[i]]; }
     return out;
   }
-  function matches(c) {
-    const normalize = text => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ').trim();
-    const terms = normalize(query).split(' ').filter(Boolean);
-    const sections = blueprint.sections.filter(section => section.ids.includes(c.id));
-    const haystack = normalize(`${c.question} ${c.answer} ${c.rationale} ${topicMap.get(c.topic).title} ${sections.map(s => s.title).join(' ')}`);
-    return terms.every(term => /^\d+$/.test(term) ? Number(term) === c.id : haystack.includes(term)) &&
-      (filter === 'all' || filter === 'review' && progress[c.id] === 'review' ||
-       filter === 'new' && !progress[c.id] || filter === 'known' && progress[c.id] === 'known' ||
-       filter === 'choices' && c.options.length > 0 || filter === 'notes' && c.note);
-  }
   function pill(c) {
     const mark = progress[c.id];
     return mark === 'known' ? '<span class="pill known">Got it</span>' : mark === 'review' ?
       '<span class="pill review">Review again</span>' : '<span class="pill neutral">Not studied</span>';
   }
   function home() {
-    view = 'home';
+    view = 'home'; document.body.classList.remove('quiz-active');
     const isBlueprint = organization === 'blueprint';
     const groups = isBlueprint ? blueprint.sections : topicGroups;
     const scope = isBlueprint ? blueprintIds : cards.map(c => c.id);
@@ -91,40 +79,33 @@
         <p class="browse-intro">${isBlueprint ? 'Your teacher’s Autumn 2026 outline, in its original order. Choose a section to get started.' : 'Choose a category to open its cards. Your full deck is here.'}</p>
         <nav class="contents-grid" aria-label="${isBlueprint ? 'Blueprint' : 'Topic'} table of contents">${groups.map((g,i) => `<button class="contents-link" data-action="jump" data-id="${g.id}"><span class="contents-number">${String(i+1).padStart(2,'0')}</span><span><strong>${esc(g.title)}</strong><small>${g.ids.length} matching ${g.ids.length===1?'card':'cards'}</small></span><span aria-hidden="true">↘</span></button>`).join('')}</nav>
         ${isBlueprint ? `<p class="blueprint-context">${blueprintIds.length} unique cards matched to the outline. Some appear in more than one section; your progress is shared.</p><details class="study-methods"><summary>How your teacher suggests studying</summary><p>Use these cards alongside your ATI modules, class notes, and discussions. After an answer, try explaining it, applying it to a new situation, and deciding why it fits.</p><ul>${blueprint.studyMethods.map(method=>`<li>${esc(method)}</li>`).join('')}</ul><p>Based on the teacher’s Autumn 2026 blueprint.</p></details>` : ''}
-        <details class="search-tools" ${query || filter!=='all'?'open':''}><summary>Search & filter <span>Optional</span></summary><div class="toolbar"><div class="search-wrap"><label class="field-label" for="search">Find a concept or card</label><input type="search" id="search" placeholder="Try prevention, Medicare, or a card number…" value="${esc(query)}" autocomplete="off"></div>
-        <div class="filter-wrap"><label class="field-label" for="filter">Show</label><select id="filter">
-        ${[['all','All cards'],['new','Not studied'],['review','Review again'],['known','Got it'],['choices','With choices'],['notes','Source notes']].map(([v,l]) => `<option value="${v}" ${filter===v?'selected':''}>${l}</option>`).join('')}</select></div></div>
-        <button class="text-button" data-action="clear">Clear search & filters</button></details>
         <div class="results-line"><span id="match-count" role="status"></span><button class="text-button compact" data-action="collapse">Collapse all</button></div><div id="topics"></div>
         ${isBlueprint ? `<aside class="extra-practice"><h3>There’s more in your deck.</h3><p>${cards.length-blueprintIds.length} additional cards sit outside these matches, including other nursing and epidemiology questions.</p><button class="btn" data-action="organization" data-value="topics">Browse all 270 cards →</button></aside>` : ''}
       </div></section>`;
-    document.querySelector('#search').addEventListener('input', e => { query = e.target.value; renderTopics(); });
-    document.querySelector('#filter').addEventListener('change', e => { filter = e.target.value; renderTopics(); });
     renderTopics();
   }
   function renderTopics() {
     const isBlueprint = organization === 'blueprint';
     const groups = isBlueprint ? blueprint.sections : topicGroups;
     const scope = new Set(groups.flatMap(group => group.ids));
-    const found = cards.filter(c => scope.has(c.id) && matches(c));
+    const found = cards.filter(c => scope.has(c.id));
     const foundIds = new Set(found.map(c => c.id));
-    const filtering = query.trim() || filter !== 'all';
-    document.querySelector('#match-count').textContent = `${found.length} unique ${found.length === 1 ? 'card' : 'cards'}${filtering ? ' matching · clear filters to see all' : ' to explore'}`;
+    document.querySelector('#match-count').textContent = `${found.length} unique ${found.length === 1 ? 'card' : 'cards'} to explore`;
     document.querySelector('#topics').innerHTML = groups.map((t, i) => {
       const list = t.ids.filter(id => foundIds.has(id)).map(id => byId.get(id));
       if (!list.length && !isBlueprint) return '';
       const known = list.filter(c => progress[c.id] === 'known').length;
-      return `<details class="topic" id="section-${t.id}" data-topic="${t.id}" ${openTopics.has(t.id) || filtering && list.length ? 'open' : ''}>
+      return `<details class="topic" id="section-${t.id}" data-topic="${t.id}" ${openTopics.has(t.id) ? 'open' : ''}>
         <summary><span class="topic-num">${String(i + 1).padStart(2,'0')}</span><div class="topic-copy"><h3>${esc(t.title)}</h3><div class="topic-sub">${known ? `${known} marked “Got it” · ` : ''}${list.length} ${list.length===1?'card':'cards'}</div></div><span class="chevron" aria-hidden="true">▼</span></summary>
         <div class="topic-body">${isBlueprint ? `<div class="conversation"><h4>${esc(t.conversation)}</h4><p>${esc(t.description)}</p></div><div class="focus-grid">${t.focuses.map((focus,index)=>{
           const ids=focus.ids.filter(id=>foundIds.has(id));
-          return `<div class="focus-card"><h4>${esc(focus.title)}</h4><p>${esc(focus.prompt)}</p>${focus.gap?`<p class="coverage-note"><strong>Review in class notes</strong>${esc(focus.gap)}</p>`:''}<button class="text-button" data-action="focus" data-id="${t.id}" data-focus="${index}" ${ids.length?'':'disabled'}>${ids.length ? `Practice ${ids.length} ${ids.length===1?'card':'cards'} →` : 'No cards match these filters'}</button></div>`;
+          return `<div class="focus-card"><h4>${esc(focus.title)}</h4><p>${esc(focus.prompt)}</p>${focus.gap?`<p class="coverage-note"><strong>Review in class notes</strong>${esc(focus.gap)}</p>`:''}<button class="text-button" data-action="focus" data-id="${t.id}" data-focus="${index}" ${ids.length?'':'disabled'}>${ids.length ? `Practice ${ids.length} ${ids.length===1?'card':'cards'} →` : 'Review in your class notes'}</button></div>`;
         }).join('')}</div><details class="blueprint-objectives"><summary>See the teacher’s wording</summary><ul>${t.objectives.map(o=>`<li>${esc(o)}</li>`).join('')}</ul></details>` : ''}
         <div class="topic-tools"><p>${isBlueprint ? 'Ready to put it together?' : esc(t.description)}</p><button class="btn" data-action="topic" data-id="${t.id}" ${list.length?'':'disabled'}>Study ${list.length} ${list.length===1?'card':'cards'} →</button></div>
         ${isBlueprint ? `<details class="card-previews"><summary>Preview the ${list.length} matching cards</summary>` : ''}
-        <div class="card-grid">${list.map(c => `<button class="preview" data-action="card" data-group="${t.id}" data-id="${c.id}" aria-label="Open card ${c.id}: ${esc(c.question)}"><span class="preview-top"><span>QUESTION ${String(c.id).padStart(3,'0')}</span><span>${c.options.length ? c.type==='multiple' ? 'SELECT ALL' : 'MULTIPLE CHOICE' : 'RECALL'}</span></span><span class="preview-question">${esc(c.question)}</span><span class="preview-foot">${pill(c)}<span>Open ↗</span></span></button>`).join('') || '<p class="empty">No matching cards. Clear search and filters to see this section’s practice.</p>'}</div>${isBlueprint?'</details>':''}
+        <div class="card-grid">${list.map(c => `<button class="preview" data-action="card" data-group="${t.id}" data-id="${c.id}" aria-label="Open card ${c.id}: ${esc(c.question)}"><span class="preview-top"><span>QUESTION ${String(c.id).padStart(3,'0')}</span><span>${c.options.length ? c.type==='multiple' ? 'SELECT ALL' : 'MULTIPLE CHOICE' : 'RECALL'}</span></span><span class="preview-question">${esc(c.question)}</span><span class="preview-foot">${pill(c)}<span>Open ↗</span></span></button>`).join('') || '<p class="empty">No matching questions in this section.</p>'}</div>${isBlueprint?'</details>':''}
         <button class="text-button back-to-contents" data-action="contents">↑ Back to contents</button></div></details>`;
-    }).join('') || '<div class="empty"><h3>No cards found</h3><p>Try another search or switch to “All cards.”</p><button class="btn" data-action="clear">Clear filters</button></div>';
+    }).join('') || '<div class="empty"><h3>No cards found</h3><p>Choose another topic.</p></div>';
     document.querySelectorAll('.topic').forEach(el => el.addEventListener('toggle', () => {
       if (el.open) openTopics.add(el.dataset.topic); else openTopics.delete(el.dataset.topic);
     }));
@@ -155,34 +136,28 @@
   function focusTop() { main.focus({ preventScroll: true }); window.scrollTo({ top: 0, behavior: 'instant' }); }
   function showCard() {
     if (session.index >= session.ids.length) { summary(); return; }
-    view = 'study';
+    view = 'study'; document.body.classList.add('quiz-active');
     const c = byId.get(session.ids[session.index]), r = response();
-    const practice = true;
-    main.innerHTML = `<button class="text-button back" data-action="home">← Back to topics</button>
-      <section class="window"><div class="titlebar"><h2>${esc(session.title)}</h2><span class="right">${session.index + 1} / ${session.ids.length}</span></div><div class="window-body">
-      <div class="session-top"><div><div class="eyebrow">${esc(topicMap.get(c.topic).title)}</div><h2>One question at a time.</h2></div>
-        <span class="pill neutral">Quiz mode · choose, reveal, learn</span></div>
-      <div class="progress-track" role="progressbar" aria-label="Round progress" aria-valuenow="${session.index}" aria-valuemin="0" aria-valuemax="${session.ids.length}"><div class="progress-fill" style="width:${session.index/session.ids.length*100}%"></div></div>
-      <div class="question-size" role="group" aria-label="Question text size"><span>Question size</span><button class="btn" data-action="size" data-direction="down" aria-label="Make question text smaller" ${questionSize===80?'disabled':''}>−</button><button class="text-button" data-action="size" data-direction="reset" aria-label="Reset question size to 100 percent"><span id="size-value" role="status">${questionSize}%</span></button><button class="btn" data-action="size" data-direction="up" aria-label="Make question text larger" ${questionSize===150?'disabled':''}>+</button></div>
-      <article class="question-sheet" style="--question-scale:${questionSize/100}"><div class="question-meta"><span>QUESTION ${String(c.id).padStart(3,'0')} · ${c.type === 'multiple' ? 'Select all that apply' : c.options.length ? 'Multiple choice' : 'Active recall'}</span>${pill(c)}</div>
-      <h3 class="question-text">${esc(c.question)}</h3>
-      ${c.options.length ? `<p class="instruction">${practice ? c.type==='multiple' ? 'Select every answer that applies, then reveal.' : 'Choose one answer, then reveal.' : 'Think through the options before revealing the answer.'}</p><div class="options" role="group" aria-label="Answer choices">${c.options.map((o,i) => {
-        const selected = r.selected.includes(i), correct = r.revealed && c.correct.includes(i), wrong = r.revealed && selected && !c.correct.includes(i);
-        return `<button class="option ${selected?'chosen':''} ${correct?'correct':''} ${wrong?'incorrect':''}" data-action="option" data-option="${i}" aria-pressed="${selected}" ${r.revealed || !practice ? 'disabled' : ''}><span class="letter">${esc(o.label)}</span><span class="option-text">${esc(o.text)}</span>${correct?'<span class="option-mark">✓ Answer</span>':wrong?'<span class="option-mark">Your choice</span>':''}</button>`;
-      }).join('')}</div>` : !r.revealed && practice ? `<div class="recall-input"><label class="field-label" for="draft">Your answer (optional)</label><textarea id="draft" placeholder="Recall it in your own words…">${esc(r.draft)}</textarea><p class="instruction">This exported card has no answer choices. Compare your response, then self-check.</p></div>` : ''}
-      ${r.revealed ? answerMarkup(c,r) : `<div class="reveal-zone"><p>${practice && c.options.length ? 'Commit to an answer. You can learn from either result.' : 'Take a moment to answer in your head.'}</p><button class="btn primary" data-action="reveal" ${practice && c.options.length && !r.selected.length?'disabled':''}>Reveal answer ↓</button></div>`}
+    main.innerHTML = `<section class="window quiz-window">
+      <div class="titlebar"><button class="quiz-back" data-action="home">← Topics</button><h2>${esc(session.title)}</h2><span class="right">${session.index + 1} / ${session.ids.length}</span></div>
+      <div class="quiz-toolbar"><span>Q${c.id} · ${c.type==='multiple'?'Select all that apply':'Choose one answer'}</span>
+      <div class="question-size" role="group" aria-label="Question text size"><button class="btn" data-action="size" data-direction="down" aria-label="Make question text smaller" ${questionSize===80?'disabled':''}>−</button><button class="text-button" data-action="size" data-direction="reset" aria-label="Reset question size to 100 percent"><span id="size-value" role="status">${questionSize}%</span></button><button class="btn" data-action="size" data-direction="up" aria-label="Make question text larger" ${questionSize===150?'disabled':''}>+</button></div></div>
+      <article class="question-sheet quiz-workspace ${r.revealed?'is-revealed':''}" style="--question-scale:${questionSize/100}">
+      <div class="quiz-question" tabindex="0" aria-label="Question and choices"><h3 class="question-text">${esc(c.question)}</h3>
+      <div class="options" role="group" aria-label="Answer choices">${c.options.map((o,i)=>{
+        const selected=r.selected.includes(i), correct=r.revealed&&c.correct.includes(i), wrong=r.revealed&&selected&&!c.correct.includes(i);
+        return `<button class="option ${selected?'chosen':''} ${correct?'correct':''} ${wrong?'incorrect':''}" data-action="option" data-option="${i}" aria-pressed="${selected}" ${r.revealed?'disabled':''}><span class="letter">${esc(o.label)}</span><span class="option-text">${esc(o.text)}</span>${correct?'<span class="option-mark">✓ Answer</span>':wrong?'<span class="option-mark">Your choice</span>':''}</button>`;
+      }).join('')}</div></div>
+      ${r.revealed?answerMarkup(c,r):'<aside class="quiz-placeholder"><h3>Answer & rationale</h3><p>Pick your answer, then reveal to see why.</p></aside>'}
       </article>
-      ${r.revealed ? `<div class="rate-row"><span class="rate-label">${r.correct?'Correct · marked Got it':'Saved to Review again'}</span><button class="btn warm" data-action="rate" data-mark="review">Review again ↻</button><button class="btn primary" data-action="skip">${session.index===session.ids.length-1?'See results':'Next question'} →</button></div>` : ''}
-      <div class="session-nav"><button class="text-button" data-action="previous" ${session.index===0?'disabled':''}>← Previous</button><span>${session.ids.length - session.index - 1} remaining</span>${!r.revealed?'<button class="text-button" data-action="skip">Skip →</button>':'<span></span>'}</div>
-      </div></section>`;
-    const draft = document.querySelector('#draft');
-    if (draft) draft.addEventListener('input', e => { r.draft = e.target.value; save(); });
+      <div class="quiz-controls"><button class="text-button" data-action="previous" ${session.index===0?'disabled':''}>← Previous</button>
+      ${r.revealed?`<button class="text-button" data-action="rate" data-mark="review">Review again ↻</button><button class="btn primary" data-action="skip">${session.index===session.ids.length-1?'See results':'Next'} →</button>`:`<button class="text-button" data-action="skip">Skip →</button><button class="btn primary" data-action="reveal" ${!r.selected.length?'disabled':''}>Reveal answer</button>`}</div></section>`;
   }
   function answerMarkup(c,r) {
     const label = r.graded ? r.correct ? '✓ Correct' : 'Another look' : 'Answer';
     const rationale = c.rationale;
-    const short = rationale.length > 520 ? rationale.slice(0, rationale.indexOf('. ', 180) > 0 ? rationale.indexOf('. ',180)+1 : 500) : rationale;
-    return `<section class="answer-block" aria-label="Answer and rationale"><h3 class="answer-label">${label}</h3><div class="answer-text">${esc(c.answer)}</div>
+    const short = rationale;
+    return `<section class="answer-block" tabindex="0" aria-label="Answer and rationale"><h3 class="answer-label">${label}</h3><div class="answer-text">Correct ${c.correct.length>1?'answers':'answer'}: ${c.correct.map(i=>esc(c.options[i].label)).join(', ')}</div>
       ${r.draft ? `<p class="instruction"><strong>Your recall:</strong> ${esc(r.draft)}</p>` : ''}
       <div class="rationale"><h3>Rationale</h3>${rationale ? `<p>${esc(short)}${short!==rationale && !short.endsWith('.')?'…':''}</p>${short!==rationale?`<details><summary>Read the full rationale</summary><p>${esc(rationale)}</p></details>`:''}` : '<p>The PDF provides an answer but no rationale for this card.</p>'}</div>
       ${c.rationaleUrl?`<a class="rationale-reference" href="${esc(c.rationaleUrl)}" target="_blank" rel="noopener">Supporting reference ↗</a>`:''}
@@ -190,7 +165,7 @@
       <details class="original"><summary>Source · PDF ${c.pages.length>1?'pages':'page'} ${c.pages.join(', ')} · Original card ${c.id}</summary><p>${c.addedChoices ? 'Answer choices were added for practice; they are not official ATI options. ' : ''}${c.rationaleKind==='Study explanation'?'The explanation was added for this quiz. ':''}The original source wording is preserved below.</p><pre>${esc(c.originalQuestion)}\n\nSOURCE ANSWER\n${esc(c.originalAnswer)}</pre><p>Page references refer to the original Quizlet export.</p></details></section>`;
   }
   function summary() {
-    view = 'summary'; save();
+    view = 'summary'; document.body.classList.remove('quiz-active'); save();
     const responses = session.ids.map(id => session.responses[id] || {});
     const got = responses.filter(r => r.mark === 'known').length;
     const again = responses.filter(r => r.mark === 'review').length;
@@ -207,15 +182,13 @@
     else if (action==='mixed') mixedRound();
     else if (action==='review') start(shuffled((organization==='blueprint'?blueprintIds:cards.map(c=>c.id)).filter(id=>progress[id]==='review')), organization==='blueprint'?'Blueprint · review again':'Review again');
     else if (action==='resume') { showCard(); focusTop(); }
-    else if (action==='clear') { query=''; filter='all'; home(); }
     else if (action==='organization') {
-      organization=button.dataset.value; query=''; filter='all'; save(); home();
+      organization=button.dataset.value; save(); home();
       main.querySelector(`.organization-switch [data-value="${organization}"]`).focus({preventScroll:true});
       window.scrollTo({top:0,behavior:'instant'});
     }
     else if (action==='jump') {
-      // TOC navigation always opens a complete category, even after an empty search.
-      query=''; filter='all'; openTopics.add(button.dataset.id); home();
+      openTopics.add(button.dataset.id); home();
       const section=document.getElementById(`section-${button.dataset.id}`);
       section.open=true; section.querySelector('summary').focus({preventScroll:true}); section.scrollIntoView({block:'start',behavior:'instant'});
     }
@@ -228,16 +201,16 @@
     }
     else if (action==='focus') {
       const section=groupMap.get(button.dataset.id), focus=section.focuses[Number(button.dataset.focus)];
-      start(focus.ids.filter(id=>matches(byId.get(id))), `Blueprint · ${focus.title}`);
+      start(focus.ids, `Blueprint · ${focus.title}`);
     }
     else if (action==='topic') {
       const group=groupMap.get(button.dataset.id);
-      start(group.ids.filter(id=>matches(byId.get(id))), `${organization==='blueprint'?'Blueprint · ':''}${group.title}`);
+      start(group.ids, `${organization==='blueprint'?'Blueprint · ':''}${group.title}`);
     }
     else if (action==='card') {
       const id=Number(button.dataset.id), c=byId.get(id);
       const group=groupMap.get(button.dataset.group) || groupMap.get(c.topic);
-      const ids=group.ids.filter(id=>matches(byId.get(id)));
+      const ids=group.ids;
       const index=ids.indexOf(id);
       start([...ids.slice(index),...ids.slice(0,index)], `${organization==='blueprint'?'Blueprint · ':''}${group.title}`);
     }
@@ -255,7 +228,7 @@
       if (r.revealed) return;
       if (c.type==='multiple') r.selected=r.selected.includes(i)?r.selected.filter(x=>x!==i):[...r.selected,i];
       else r.selected=[i];
-      const y=window.scrollY; save(); showCard(); window.scrollTo(0,y);
+      const y=main.querySelector('.quiz-question').scrollTop; save(); showCard(); main.querySelector('.quiz-question').scrollTop=y;
       main.querySelector(`[data-option="${i}"]`)?.focus({preventScroll:true});
     }
     else if (action==='reveal') {
@@ -265,9 +238,9 @@
         r.graded=true; r.correct=r.selected.length===c.correct.length && r.selected.every(i=>c.correct.includes(i));
         r.mark=r.correct?'known':'review'; progress[c.id]=r.mark;
       }
-      const y=window.scrollY; save(); showCard();
+      save(); showCard();
       const answer=main.querySelector('.answer-block'); answer.setAttribute('tabindex','-1'); answer.focus({preventScroll:true});
-      if (answer.getBoundingClientRect().top > window.innerHeight-100) answer.scrollIntoView({block:'start',behavior:'smooth'}); else window.scrollTo(0,y);
+
     }
     else if (action==='rate') {
       const r=response(); r.mark=button.dataset.mark; progress[session.ids[session.index]]=r.mark;
@@ -285,7 +258,7 @@
   document.querySelector('#cancel-reset').addEventListener('click', () => { document.querySelector('#reset-confirm').hidden = true; document.querySelector('#reset-progress').focus(); });
   document.querySelector('#confirm-reset').addEventListener('click', () => {
     document.querySelector('#reset-confirm').hidden = true;
-    Object.keys(progress).forEach(id => delete progress[id]); session = null; mode = 'flashcard'; query = ''; filter = 'all'; openTopics = new Set();
+    Object.keys(progress).forEach(id => delete progress[id]); session = null; mode = 'practice'; openTopics = new Set();
     save(); dialog.close(); home(); focusTop(); toast('Study progress reset. Ready for a fresh start.');
   });
   dialog.querySelector('.window-close').addEventListener('click',()=>dialog.close());
