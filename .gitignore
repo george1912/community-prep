@@ -1,0 +1,6 @@
+tmp/
+.DS_Store
+
+# Original study attachments stay local, outside the public repository.
+source.pdf
+blueprint.docx
