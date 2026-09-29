@@ -1,12 +1,12 @@
 # Community Prep
 
-A standalone, responsive study page with 270 community nursing cards organized into 13 topics. Its visual styling follows the supplied pediatrics reference; it does not modify that site.
+A standalone, responsive quiz page with 270 community nursing cards organized into 13 topics. Its visual styling follows the supplied pediatrics reference; it does not modify that site.
 
 ## Run
 
 Serve this directory with `python3 -m http.server 5179 --bind 127.0.0.1`, then open http://127.0.0.1:5179. The app is plain HTML/CSS/JavaScript with no build or API keys. It can also be opened directly using index.html; a local server is recommended for consistent browser storage and PDF links.
 
-For static hosting, deploy `index.html`, `styles.css`, `app.js`, `data.js`, `blueprint.js` together. The site is published at https://george1912.github.io/community-prep/.
+For static hosting, deploy `index.html`, `styles.css`, `app.js`, `data.js`, `quiz-data.js`, `blueprint.js` together. The site is published at https://george1912.github.io/community-prep/.
 
 ## Blueprint navigation
 
@@ -22,11 +22,11 @@ Blueprint mode is the initial organization view. It follows the eight sections i
 ## Content and behavior
 
 - Source: the supplied 134-page Quizlet PDF export, all 270 numbered cards.
-- 59 choice-based cards (including one select-all); 211 recall cards. Missing distractors are not invented.
-- 221 cards have a source rationale. The other 49 explicitly say the PDF provides no rationale.
+- All 270 questions use selectable choices: 245 single-answer A–D questions and 25 select-all questions. Missing distractors were authored for practice and are not official ATI options.
+- All questions have rationales. The original 221 source rationales are retained or clarified; the 49 missing explanations were added for study.
 - Original question/answer wording and PDF page references are retained on every card.
 - Identified source problems are annotated. Cards 130, 149, 152, and 201 have clarified displayed answers; the original answers remain accessible. Card 12's numeric key is matched to the option wording. Clinical accuracy of the full source bank has not been independently audited.
-- Search, topic browsing, mixed rounds, multiple-choice checks, recall notes, self-ratings, review queue, and resume are supported.
+- Search, topic browsing, mixed rounds, multiple-choice scoring, automatic review of missed answers, review queue, and resume are supported.
 - Browser localStorage saves progress on this device. No server, account, or cross-device sync.
 - Google Fonts supplies Pixelify Sans and IBM Plex Sans, with local fallback fonts.
 
@@ -38,4 +38,10 @@ Keep the scripts and temporary extraction artifacts out of public hosting if the
 
 ## Question size
 
-Use A− and A+ above the question to adjust text from 80% to 150%; tap the percentage to reset to 100%. Question text, choices, answers, and rationales scale together, with more compact spacing at smaller sizes. The preference is saved on the current device.
+Use − and + above the question to adjust text from 80% to 150%; tap the percentage to reset to 100%. Question text, choices, answers, and rationales scale together, with more compact spacing at smaller sizes. The preference is saved on the current device.
+
+## Building the quiz
+
+Run `node scripts/build-quiz.cjs` after rebuilding `data.js`. Supplemental choices and explanations are maintained in `content/`. The generated `quiz-data.js` adds the quiz layer while preserving each original question and answer. Option order is deterministic so saved answers remain stable. Version 2 restarts incompatible pre-quiz rounds while preserving existing study marks.
+
+Run `node tests/quiz.test.cjs` to validate all question formats, keys, rationales, source preservation, and blueprint references.

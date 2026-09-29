@@ -2137,11 +2137,7 @@ window.STUDY_DATA = {
       "options": [
         {
           "label": "A",
-          "text": "A client who has heart failure and reports a weight loss of"
-        },
-        {
-          "label": "2",
-          "text": "2 kg (1 lb) over the past week"
+          "text": "A client who has heart failure and reports a weight loss of 2.2 kg (1 lb) over the past week"
         },
         {
           "label": "B",
@@ -2157,7 +2153,7 @@ window.STUDY_DATA = {
         }
       ],
       "correct": [
-        4
+        3
       ],
       "answer": "D. A client who has type 2 diabetes mellitus and reports a new fissure between her toes",
       "rationale": "",

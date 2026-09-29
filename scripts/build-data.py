@@ -60,7 +60,7 @@ for c in raw:
  if n in (4,16,61):ans,rat=a,''
  opts=[];stem=q
  if n<=61 and n not in (4,61):
-  matches=list(re.finditer(r'(?:^|\n)\s*([A-D1-5])\.\s*',q))
+  matches=list(re.finditer(r'(?:^|\n)\s*([A-D1-5])\.\s+',q))
   if len(matches)>=3:
    stem=q[:matches[0].start()]
    opts=[{'label':m.group(1),'text':clean(q[m.end():matches[i+1].start() if i+1<len(matches) else len(q)])} for i,m in enumerate(matches)]

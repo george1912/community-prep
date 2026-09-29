@@ -20,7 +20,8 @@
     }
   }
   let session = validateSession(saved.session);
-  let mode = saved.mode === 'practice' ? 'practice' : 'flashcard';
+  let mode = 'practice';
+  if (session && saved.quizVersion !== window.QUIZ_VERSION) session = { ...session, index: 0, responses: {} };
   let organization = saved.organization === 'topics' ? 'topics' : 'blueprint';
   let questionSize = [80, 90, 100, 110, 125, 150].includes(saved.questionSize) ? saved.questionSize : 100;
   let view = 'home';
@@ -37,7 +38,7 @@
       responses: value.responses && typeof value.responses === 'object' ? value.responses : {} };
   }
   function save() {
-    try { localStorage.setItem(storageKey, JSON.stringify({ progress, session, mode, organization, questionSize })); }
+    try { localStorage.setItem(storageKey, JSON.stringify({ progress, session, mode, organization, questionSize, quizVersion: window.QUIZ_VERSION })); }
     catch { storageWorks = false; toast('Browser storage is unavailable. Progress will last for this visit only.'); }
   }
   function esc(value) {
@@ -80,7 +81,7 @@
     main.innerHTML = `${!storageWorks ? '<p class="save-warning">Browser storage is unavailable. Your marks will last for this visit only.</p>' : ''}
       <div class="organization-bar"><div><span class="field-label">Organize my practice</span><p>${isBlueprint ? 'Follow your teacher’s study guide.' : 'Browse the complete question bank.'}</p></div><div class="mode-switch organization-switch" role="group" aria-label="Organize practice"><button data-action="organization" data-value="blueprint" aria-pressed="${isBlueprint}">Blueprint mode</button><button data-action="organization" data-value="topics" aria-pressed="${!isBlueprint}">All topics</button></div></div>
       <section class="window"><div class="titlebar"><h2>Your study desk</h2><span class="right">READY WHEN YOU ARE</span></div><div class="window-body">
-        <div class="intro"><div><h2>${isBlueprint ? 'Let’s work through the blueprint.' : 'Small rounds. Steady progress.'}</h2><p>${isBlueprint ? 'Pick a section below, talk through the key ideas, then try its matching cards. Or start a short round across the eight sections.' : 'Pick a topic or mix things up. Think through the question, tap for the answer, and give the tricky ones another look.'}</p></div>
+        <div class="intro"><div><h2>${isBlueprint ? 'Let’s work through the blueprint.' : 'Small rounds. Steady progress.'}</h2><p>${isBlueprint ? 'Pick a section below, talk through the key ideas, then try its matching cards. Or start a short round across the eight sections.' : 'Pick a topic or mix things up. Choose an answer, reveal the result, and read the rationale. Missed questions are saved for another look.'}</p></div>
           <div class="actions"><button class="btn primary" data-action="mixed">${isBlueprint ? '10 blueprint questions' : 'Start 10 questions'} →</button><button class="btn warm" data-action="review" ${scopeReview ? '' : 'disabled'}>Review again (${scopeReview})</button>
           ${unfinished ? `<button class="btn" data-action="resume">Resume · ${session.index + 1} of ${session.ids.length} →</button>` : ''}</div></div>
         <p class="progress-caption">Your progress across all 270 cards</p>
@@ -121,7 +122,7 @@
         }).join('')}</div><details class="blueprint-objectives"><summary>See the teacher’s wording</summary><ul>${t.objectives.map(o=>`<li>${esc(o)}</li>`).join('')}</ul></details>` : ''}
         <div class="topic-tools"><p>${isBlueprint ? 'Ready to put it together?' : esc(t.description)}</p><button class="btn" data-action="topic" data-id="${t.id}" ${list.length?'':'disabled'}>Study ${list.length} ${list.length===1?'card':'cards'} →</button></div>
         ${isBlueprint ? `<details class="card-previews"><summary>Preview the ${list.length} matching cards</summary>` : ''}
-        <div class="card-grid">${list.map(c => `<button class="preview" data-action="card" data-group="${t.id}" data-id="${c.id}" aria-label="Open card ${c.id}: ${esc(c.question)}"><span class="preview-top"><span>CARD ${String(c.id).padStart(3,'0')}</span><span>${c.options.length ? c.type==='multiple' ? 'SELECT ALL' : 'MULTIPLE CHOICE' : 'RECALL'}</span></span><span class="preview-question">${esc(c.question)}</span><span class="preview-foot">${pill(c)}<span>Open ↗</span></span></button>`).join('') || '<p class="empty">No matching cards. Clear search and filters to see this section’s practice.</p>'}</div>${isBlueprint?'</details>':''}
+        <div class="card-grid">${list.map(c => `<button class="preview" data-action="card" data-group="${t.id}" data-id="${c.id}" aria-label="Open card ${c.id}: ${esc(c.question)}"><span class="preview-top"><span>QUESTION ${String(c.id).padStart(3,'0')}</span><span>${c.options.length ? c.type==='multiple' ? 'SELECT ALL' : 'MULTIPLE CHOICE' : 'RECALL'}</span></span><span class="preview-question">${esc(c.question)}</span><span class="preview-foot">${pill(c)}<span>Open ↗</span></span></button>`).join('') || '<p class="empty">No matching cards. Clear search and filters to see this section’s practice.</p>'}</div>${isBlueprint?'</details>':''}
         <button class="text-button back-to-contents" data-action="contents">↑ Back to contents</button></div></details>`;
     }).join('') || '<div class="empty"><h3>No cards found</h3><p>Try another search or switch to “All cards.”</p><button class="btn" data-action="clear">Clear filters</button></div>';
     document.querySelectorAll('.topic').forEach(el => el.addEventListener('toggle', () => {
@@ -156,23 +157,23 @@
     if (session.index >= session.ids.length) { summary(); return; }
     view = 'study';
     const c = byId.get(session.ids[session.index]), r = response();
-    const practice = mode === 'practice';
+    const practice = true;
     main.innerHTML = `<button class="text-button back" data-action="home">← Back to topics</button>
       <section class="window"><div class="titlebar"><h2>${esc(session.title)}</h2><span class="right">${session.index + 1} / ${session.ids.length}</span></div><div class="window-body">
       <div class="session-top"><div><div class="eyebrow">${esc(topicMap.get(c.topic).title)}</div><h2>One question at a time.</h2></div>
-        <div class="mode-switch" aria-label="Study mode"><button data-action="mode" data-mode="flashcard" aria-pressed="${!practice}">Flashcard</button><button data-action="mode" data-mode="practice" aria-pressed="${practice}">Practice</button></div></div>
+        <span class="pill neutral">Quiz mode · choose, reveal, learn</span></div>
       <div class="progress-track" role="progressbar" aria-label="Round progress" aria-valuenow="${session.index}" aria-valuemin="0" aria-valuemax="${session.ids.length}"><div class="progress-fill" style="width:${session.index/session.ids.length*100}%"></div></div>
-      <div class="question-size" role="group" aria-label="Question text size"><span>Question size</span><button class="btn" data-action="size" data-direction="down" aria-label="Make question text smaller" ${questionSize===80?'disabled':''}>A−</button><button class="text-button" data-action="size" data-direction="reset" aria-label="Reset question size to 100 percent"><span id="size-value" role="status">${questionSize}%</span></button><button class="btn" data-action="size" data-direction="up" aria-label="Make question text larger" ${questionSize===150?'disabled':''}>A+</button></div>
-      <article class="question-sheet" style="--question-scale:${questionSize/100}"><div class="question-meta"><span>CARD ${String(c.id).padStart(3,'0')} · ${c.type === 'multiple' ? 'Select all that apply' : c.options.length ? 'Multiple choice' : 'Active recall'}</span>${pill(c)}</div>
+      <div class="question-size" role="group" aria-label="Question text size"><span>Question size</span><button class="btn" data-action="size" data-direction="down" aria-label="Make question text smaller" ${questionSize===80?'disabled':''}>−</button><button class="text-button" data-action="size" data-direction="reset" aria-label="Reset question size to 100 percent"><span id="size-value" role="status">${questionSize}%</span></button><button class="btn" data-action="size" data-direction="up" aria-label="Make question text larger" ${questionSize===150?'disabled':''}>+</button></div>
+      <article class="question-sheet" style="--question-scale:${questionSize/100}"><div class="question-meta"><span>QUESTION ${String(c.id).padStart(3,'0')} · ${c.type === 'multiple' ? 'Select all that apply' : c.options.length ? 'Multiple choice' : 'Active recall'}</span>${pill(c)}</div>
       <h3 class="question-text">${esc(c.question)}</h3>
-      ${c.options.length ? `<p class="instruction">${practice ? c.type==='multiple' ? 'Select every answer that applies, then check.' : 'Choose your answer, then check.' : 'Think through the options before revealing the answer.'}</p><div class="options" role="group" aria-label="Answer choices">${c.options.map((o,i) => {
+      ${c.options.length ? `<p class="instruction">${practice ? c.type==='multiple' ? 'Select every answer that applies, then reveal.' : 'Choose one answer, then reveal.' : 'Think through the options before revealing the answer.'}</p><div class="options" role="group" aria-label="Answer choices">${c.options.map((o,i) => {
         const selected = r.selected.includes(i), correct = r.revealed && c.correct.includes(i), wrong = r.revealed && selected && !c.correct.includes(i);
         return `<button class="option ${selected?'chosen':''} ${correct?'correct':''} ${wrong?'incorrect':''}" data-action="option" data-option="${i}" aria-pressed="${selected}" ${r.revealed || !practice ? 'disabled' : ''}><span class="letter">${esc(o.label)}</span><span class="option-text">${esc(o.text)}</span>${correct?'<span class="option-mark">✓ Answer</span>':wrong?'<span class="option-mark">Your choice</span>':''}</button>`;
       }).join('')}</div>` : !r.revealed && practice ? `<div class="recall-input"><label class="field-label" for="draft">Your answer (optional)</label><textarea id="draft" placeholder="Recall it in your own words…">${esc(r.draft)}</textarea><p class="instruction">This exported card has no answer choices. Compare your response, then self-check.</p></div>` : ''}
-      ${r.revealed ? answerMarkup(c,r) : `<div class="reveal-zone"><p>${practice && c.options.length ? 'Commit to an answer. You can learn from either result.' : 'Take a moment to answer in your head.'}</p><button class="btn primary" data-action="reveal" ${practice && c.options.length && !r.selected.length?'disabled':''}>${practice && c.options.length ? 'Check answer' : 'Reveal answer'} ↓</button></div>`}
+      ${r.revealed ? answerMarkup(c,r) : `<div class="reveal-zone"><p>${practice && c.options.length ? 'Commit to an answer. You can learn from either result.' : 'Take a moment to answer in your head.'}</p><button class="btn primary" data-action="reveal" ${practice && c.options.length && !r.selected.length?'disabled':''}>Reveal answer ↓</button></div>`}
       </article>
-      ${r.revealed ? `<div class="rate-row"><span class="rate-label">How did that feel?</span><button class="btn warm" data-action="rate" data-mark="review">Review again ↻</button><button class="btn green" data-action="rate" data-mark="known">Got it →</button></div>` : ''}
-      <div class="session-nav"><button class="text-button" data-action="previous" ${session.index===0?'disabled':''}>← Previous</button><span>${session.ids.length - session.index - 1} remaining</span><button class="text-button" data-action="skip">${r.revealed?'Next':'Skip'} →</button></div>
+      ${r.revealed ? `<div class="rate-row"><span class="rate-label">${r.correct?'Correct · marked Got it':'Saved to Review again'}</span><button class="btn warm" data-action="rate" data-mark="review">Review again ↻</button><button class="btn primary" data-action="skip">${session.index===session.ids.length-1?'See results':'Next question'} →</button></div>` : ''}
+      <div class="session-nav"><button class="text-button" data-action="previous" ${session.index===0?'disabled':''}>← Previous</button><span>${session.ids.length - session.index - 1} remaining</span>${!r.revealed?'<button class="text-button" data-action="skip">Skip →</button>':'<span></span>'}</div>
       </div></section>`;
     const draft = document.querySelector('#draft');
     if (draft) draft.addEventListener('input', e => { r.draft = e.target.value; save(); });
@@ -183,9 +184,10 @@
     const short = rationale.length > 520 ? rationale.slice(0, rationale.indexOf('. ', 180) > 0 ? rationale.indexOf('. ',180)+1 : 500) : rationale;
     return `<section class="answer-block" aria-label="Answer and rationale"><h3 class="answer-label">${label}</h3><div class="answer-text">${esc(c.answer)}</div>
       ${r.draft ? `<p class="instruction"><strong>Your recall:</strong> ${esc(r.draft)}</p>` : ''}
-      <div class="rationale"><h3>Why this answer?</h3>${rationale ? `<p>${esc(short)}${short!==rationale && !short.endsWith('.')?'…':''}</p>${short!==rationale?`<details><summary>Read the full source rationale</summary><p>${esc(rationale)}</p></details>`:''}` : '<p>The PDF provides an answer but no rationale for this card.</p>'}</div>
+      <div class="rationale"><h3>Rationale</h3>${rationale ? `<p>${esc(short)}${short!==rationale && !short.endsWith('.')?'…':''}</p>${short!==rationale?`<details><summary>Read the full rationale</summary><p>${esc(rationale)}</p></details>`:''}` : '<p>The PDF provides an answer but no rationale for this card.</p>'}</div>
+      ${c.rationaleUrl?`<a class="rationale-reference" href="${esc(c.rationaleUrl)}" target="_blank" rel="noopener">Supporting reference ↗</a>`:''}
       ${c.note ? `<aside class="source-note"><strong>${c.needsReview ? 'Check with your course materials' : 'Source clarification'}</strong>${esc(c.note.text)}${c.note.url?`<br><a href="${esc(c.note.url)}" target="_blank" rel="noopener">Read supporting reference ↗</a>`:''}</aside>`:''}
-      <details class="original"><summary>Source · PDF ${c.pages.length>1?'pages':'page'} ${c.pages.join(', ')} · Original card ${c.id}</summary><p>The original wording is preserved below, including any source-key inconsistencies.</p><pre>${esc(c.originalQuestion)}\n\nSOURCE ANSWER\n${esc(c.originalAnswer)}</pre><p>Page references refer to the original Quizlet export.</p></details></section>`;
+      <details class="original"><summary>Source · PDF ${c.pages.length>1?'pages':'page'} ${c.pages.join(', ')} · Original card ${c.id}</summary><p>${c.addedChoices ? 'Answer choices were added for practice; they are not official ATI options. ' : ''}${c.rationaleKind==='Study explanation'?'The explanation was added for this quiz. ':''}The original source wording is preserved below.</p><pre>${esc(c.originalQuestion)}\n\nSOURCE ANSWER\n${esc(c.originalAnswer)}</pre><p>Page references refer to the original Quizlet export.</p></details></section>`;
   }
   function summary() {
     view = 'summary'; save();
@@ -194,7 +196,7 @@
     const again = responses.filter(r => r.mark === 'review').length;
     const scored = responses.filter(r => r.graded);
     const correct = scored.filter(r => r.correct).length;
-    main.innerHTML = `<button class="text-button back" data-action="home">← Back to topics</button><section class="window"><div class="titlebar"><h2>Round complete</h2><span class="right">NICE WORK</span></div><div class="window-body"><div class="summary-sheet"><div class="result-symbol" aria-hidden="true">[ ✓ ]</div><h2>A little more prepared.</h2><p>${session.ids.length} ${session.ids.length===1?'card':'cards'} in this round. Every revisit is another chance to remember.</p><div class="stats"><div class="stat"><strong>${got}</strong><span>Marked “Got it”</span></div><div class="stat"><strong>${again}</strong><span>Review again</span></div><div class="stat"><strong>${session.ids.length-got-again}</strong><span>Not self-rated</span></div></div>${scored.length?`<p><strong>Practice checks: ${correct} / ${scored.length} correct.</strong><br>Self-ratings above are tracked separately from checked answers.</p>`:'<p>This was a self-check round. Your marks are saved for next time.</p>'}<div class="actions">${again?'<button class="btn warm" data-action="round-review">Revisit this round’s tricky cards ↻</button>':''}<button class="btn primary" data-action="mixed">Another 10 questions →</button><button class="btn" data-action="home">Explore topics</button></div></div></div></section>`;
+    main.innerHTML = `<button class="text-button back" data-action="home">← Back to topics</button><section class="window"><div class="titlebar"><h2>Round complete</h2><span class="right">NICE WORK</span></div><div class="window-body"><div class="summary-sheet"><div class="result-symbol" aria-hidden="true">[ ✓ ]</div><h2>A little more prepared.</h2><p>${session.ids.length} ${session.ids.length===1?'card':'cards'} in this round. Every revisit is another chance to remember.</p><div class="stats"><div class="stat"><strong>${got}</strong><span>Marked “Got it”</span></div><div class="stat"><strong>${again}</strong><span>Review again</span></div><div class="stat"><strong>${session.ids.length-got-again}</strong><span>Skipped</span></div></div>${scored.length?`<p><strong>Practice checks: ${correct} / ${scored.length} correct.</strong><br>Correct answers are marked “Got it.” Missed questions are saved for review.</p>`:'<p>No answers were checked in this round. Try choosing an answer before revealing.</p>'}<div class="actions">${again?'<button class="btn warm" data-action="round-review">Revisit this round’s tricky cards ↻</button>':''}<button class="btn primary" data-action="mixed">Another 10 questions →</button><button class="btn" data-action="home">Explore topics</button></div></div></div></section>`;
     focusTop();
   }
   main.addEventListener('click', e => {
@@ -261,6 +263,7 @@
       r.revealed=true;
       if (mode==='practice' && c.options.length && r.selected.length) {
         r.graded=true; r.correct=r.selected.length===c.correct.length && r.selected.every(i=>c.correct.includes(i));
+        r.mark=r.correct?'known':'review'; progress[c.id]=r.mark;
       }
       const y=window.scrollY; save(); showCard();
       const answer=main.querySelector('.answer-block'); answer.setAttribute('tabindex','-1'); answer.focus({preventScroll:true});

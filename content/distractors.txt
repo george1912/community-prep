@@ -1,0 +1,207 @@
+62|Interpersonal relationships|Physiological adaptation
+63|Secondary prevention|Tertiary prevention|Acute treatment
+64|Repeat the same meal-plan teaching before asking more questions|Assume the client has chosen not to manage the condition|Immediately change the plan without discussing the client's concerns
+65|Health Belief Model|Transtheoretical Model|Classical conditioning
+66|Provide one client with a list of exercise videos|Increase the frequency of blood pressure screenings|Offer a lecture on personal hygiene
+67|Arrange physical therapy for one injured employee|Review the pain medication prescribed to one worker|Provide wound care to a worker injured that morning
+68|Perioperative nurse|Critical care nurse|Postanesthesia care nurse
+69|Biomedical model|Acute illness trajectory model|Classical conditioning model
+70|Higher education costs have no effect on future employment options|Higher tuition guarantees better job placement for all residents|Financial barriers mainly increase access to advanced training
+71|The client continues to grimace with movement|The client becomes more tense during care|The client guards the painful area more frequently
+72|Encouraging symptomatic residents to obtain diagnostic testing|Discussing rehabilitation after severe illness|Planning follow-up care for clients with lasting complications
+73|Wait until the nurse can prove who caused the injuries|Tell the student to resolve the situation independently|Provide only a general violence-prevention presentation
+74|Use I PREPARE as a substitute for workplace hazard prevention
+75|Quality education|Gender equality|Life below water only
+76|Primary|Tertiary|Rehabilitation
+77|Hospital Consumer Assessment of Healthcare Providers and Systems|Diagnostic and Statistical Manual of Mental Disorders|National Provider Identifier program
+78|Schedule individual wound dressing changes|Audit only the clinic's supply inventory|Plan the intervention without inviting community partners
+79|Why did you fail to follow the instructions?|Does this mean you never wanted to change?|Should we stop discussing your diet altogether?
+80|Ask the client to discontinue follow-up once symptoms improve|Arrange only an annual general wellness appointment|Tell the client that treatment monitoring is unnecessary
+81|Providing continuous ventilator management in an intensive care unit|Circulating during an inpatient surgical procedure|Administering anesthesia in an operating room
+82|Ask a young child in the household to interpret|Speak louder in the nurse's own language|Proceed without checking the client's understanding
+83|Client advocacy|Political advocacy|Consumer advocacy
+84|The hospital cafeteria menu|A list of insurance billing codes|The unit's vacation scheduling policy
+85|I will describe the geographic locations where nurses work.|I will explain which people are licensed to practice nursing.|I will specify the hours during which nursing care is available.
+86|Autonomy|Veracity|Confidentiality
+87|Changing one postoperative client's surgical dressing|Titrating one client's vasopressor infusion|Preparing one client for cardiac catheterization
+88|They are optional recommendations from each employer|They are identical facility policies in every hospital|They are billing rules written by private insurers
+89|Everyone has trouble sleeping; try not to think about it.|You should simply go to bed earlier.|There is no reason for you to be awake at night.
+90|Give written instructions without checking understanding|Ask only whether the client has any questions|Demonstrate the technique while asking the client to look away
+91|Accept chronic understaffing without raising concerns|Ask clients to reduce their care needs|Alter the schedule secretly without involving leadership
+92|Beneficence|Justice|Nonmaleficence
+93|I will choose the treatment that seems easiest for the staff.|I will obtain a signature even when the client still has questions.|I will withhold alternatives to avoid confusing the client.
+94|Resource allocation|Political lobbying|Research oversight
+95|The medical billing cycle|The hospital chain of command|The employee disciplinary process
+96|Refuse to discuss options because the client is an adolescent|Choose the method based only on the nurse's personal beliefs|Dismiss the client's questions as unimportant
+97|Blame the client for not arranging the referral independently|Remove the delay from the record|State that referrals are never a nursing responsibility
+98|Professional advocacy for staffing|Resource rationing|Peer performance evaluation
+99|Physical therapist|Respiratory therapist|Radiology technologist
+100|Fidelity|Veracity|Confidentiality
+101|You should not feel ashamed about your weight.|Other people have more serious problems.|If you tried harder, you would feel better.
+102|Individual competition|Paternalism|Resource rationing
+103|An adult day care center|A school-based vaccination clinic|A community exercise class
+104|Professional advocacy|Political campaigning|Union negotiation
+105|Accept the lack of follow-up as unavoidable|Limit care discussions to the client's current symptoms|Avoid discussing the service gap with clinic leadership
+106|Send families a list of disciplinary consequences without education|Discuss the policy only with students who become ill|Assume families already understand why the policy changed
+107|Practicing drawing up insulin in a syringe|Participating only in an audio discussion
+108|Use technical medical jargon to make the handout sound authoritative
+110|A learner's hearing impairment|A learner's limited transportation|A learner's competing family responsibilities
+111|Teach-back eliminates the need to evaluate long-term outcomes
+112|Humanistic learning theory|Cognitive learning theory|Experiential learning theory
+113|Reserve a venue before considering the audience|Order printed materials before assessing learning needs|Select the evaluation method without defining the purpose
+114|The educator should control every learning decision|External rewards are the only influence on learning
+115|Community input is unnecessary when professionals design the event|Every community group has equal influence in planning|Attendance alone guarantees meaningful engagement
+116|Epidemiological triangle|Nursing staffing matrix|Biomedical model
+117|Listening to a recorded lecture|Reading a printed information sheet|Watching the instructor without practicing
+118|Naming three carbohydrate sources before leaving class|Demonstrating a skill at the end of today's session|Asking one question during the teaching session
+119|Reviewing an already published census report
+120|Medical jargon should replace common words|A signed form proves the client understands|More complex vocabulary always improves learning
+121|Completion of a billing form|Memorization of every medical term|Increasing the number of handouts distributed
+122|The required number of clinic employees|The community's total hospital capacity|The genetic cause of a disease
+123|I do not think I need to exercise.|I am considering starting an exercise program.|I plan to start jogging next month.
+124|A society focused only on reducing inpatient hospital stays|A health system limited to treatment after illness occurs|A program that addresses health only during working adulthood
+125|It relies exclusively on open-ended interviews|It excludes key stakeholders from prioritization|It replaces priority setting with a random selection
+126|The Health Belief Model|The Transtheoretical Model|The epidemiological triangle
+127|It is primarily a staff vacation schedule|It describes proposed activities but never their outcomes|It is a confidential list of staff disciplinary actions
+128|Every community must implement it without adaptation.|It replaces assessment of local needs.|It applies only to hospital-based acute care.
+129|It should be withheld from community participants|It should report only favorable findings|It should exclude information about outcomes
+130|All conditions must be reported directly to CDC by every client|National notification replaces all state reporting requirements|Only hospitals collect any information about notifiable diseases
+131|Purchasing supplies before identifying partners|Evaluating final outcomes before planning|Selecting interventions before involving stakeholders
+132|Individual personality type|Medication administration route|Hospital bed number
+133|Planning should be limited to one professional discipline|Community members should participate only after implementation|Partners should be chosen solely because they agree with every proposal
+134|To list staff vacation requests|To report only the project's final expenditures|To replace discussion of the community's concerns
+135|It is led by one person without community participation|It excludes assessment and evaluation|It requires identical interventions in every community
+136|Exclude residents from planning meetings|Withhold information about the program|Assume participation will occur without outreach
+137|Gatekeepers are useful only for ordering supplies|Gatekeepers must always be elected government officials|Gatekeepers have no influence on community acceptance
+138|A single client's head-to-toe assessment|A hospital employee performance review|An insurance claim audit
+139|Choose partners without considering community trust|Invite only organizations that have no local connections|Avoid discussing shared goals with prospective partners
+140|Planning is unnecessary once a problem is noticed|Evaluation must occur before any assessment|Capacity building has no role in the process
+141|A public health nurse focuses exclusively on inpatient treatment|A public health nurse provides only individual surgical care|A public health nurse avoids using population data
+142|It should reflect only the preferences of the planning chair|It should focus exclusively on one staff member's convenience|It should ignore how many residents are affected
+143|A hospital's individual discharge checklist|A private insurer's billing directory|A clinic's employee handbook
+144|Interventions should be selected without evidence|Community participation is discouraged|Existing community needs should not influence planning
+145|A case-control study|A randomized controlled trial|A cohort study
+146|The biomedical model alone|The stages of change model alone|The conditioning model alone
+147|Evaluation is used only to assign blame when a program fails|Evaluation replaces the need to involve community members|Evaluation guarantees that no changes will ever be needed
+148|Cultural competence is excluded from the framework|Only short-term funding matters|Sustainability is unrelated to prevention planning
+149|Only new cases arising during a period|Only deaths caused by a disease|Only individuals exposed who remain free of disease
+150|Low specificity means the test cannot produce false positives.|Low specificity guarantees the disease is present.|Low specificity means no confirmatory evaluation can be useful.
+151|Dissemination of completed findings|Final data interpretation|Publication of conclusions
+152|22.4% (24 divided by all 107 attendees)|4.1% (the reciprocal of the attack proportion)|91.6% (98 divided by all 107 attendees)
+153|You will assign me a new treatment at random today.|You selected me because I already have the disease and will compare past exposures.|You will collect information once without any follow-up.
+154|You will randomly assign me to a treatment group.|You will observe only healthy people until some develop disease.|You will change my exposure as part of the experiment.
+155|Evidence shows harms outweigh benefits, so everyone should be screened.|There is no evidence of benefit, but screening is mandatory.|This screening should never be offered to any client.
+156|Have you ever had asthma at any time in your life?|How many new asthma diagnoses occurred this year?|Did asthma contribute to any deaths last year?
+157|Susceptible host|Portal of exit|Reservoir
+158|Direct bedside treatment|Individual discharge planning|Laboratory specimen processing
+159|Stage of susceptibility|Incubation period|Initial clinical illness
+160|Portal of exit|Infectious agent|Reservoir
+161|The exposure always occurs after the disease begins|Increasing exposure has no relationship to risk|Only one person must develop the disease
+162|Beneficence|Justice|Fidelity
+163|Autonomy|Veracity|Fidelity
+164|Veracity|Fidelity|Confidentiality
+165|Pandemic|Epidemic|Eradication
+166|Observational studies always assign treatments at random|Experimental studies never involve an intervention|Observational studies require deliberately changing the exposure
+167|Only people who became ill after eating the food|Everyone in the county, regardless of attendance|Only those who attended but did not eat the food
+168|Crude mortality rate|Proportionate mortality|Case-fatality proportion
+169|Provide only direct treatment to hospitalized clients|Focus exclusively on clinic billing compliance|Recruit staff without investigating the outbreak
+170|Evidence strongly supports routinely offering this screening.|There is insufficient evidence to determine the balance of benefits and harms.|This screening is mandatory regardless of the client's preferences.
+171|The result occurred by chance in one person|The proposed cause always appears after the outcome|The association is unrelated to any possible biological mechanism
+172|What is your favorite television program?
+173|Stage of susceptibility before infection|Convalescent phase|Stage of recovery
+174|Agent|Vector|Reservoir
+175|Crude mortality rate for all residents|Case-fatality proportion for one disease|Overall birth rate
+176|Incidence rate|Attack rate|Point prevalence
+177|False positives mean the person has disease and the test is positive.|False positives mean the person has disease and the test is negative.|False positives mean the person is disease-free and the test is negative.
+178|True negatives mean disease is present but the test is negative.|True negatives mean disease is absent but the test is positive.|True negatives mean disease is present and the test is positive.
+179|The client has Medicaid with Medicare Part D as a supplemental policy|The client has workers' compensation as a universal retirement benefit|The client has CHIP with an employer retirement pension
+180|Wait until an injury occurs before addressing protective equipment|Focus only on documenting past injuries|Replace safety measures with a general annual newsletter
+181|A stable and supportive family network|Consistent access to trusted adults|Participation in a supportive peer group
+182|The color of the program's printed materials|The staff's preferred meeting location|The number of social media followers of the clinic
+183|Mentorship guarantees that all conflict at school will stop.|A mentor can replace every professional mental health service.|A mentorship program requires you to solve these problems alone.
+184|The design of the parent's exercise clothing|An elective cosmetic nutrition program|A discussion of unrelated adult screening schedules
+185|Screen only students who already have symptoms|Arrange rehabilitation after complications develop|Evaluate outcomes after the outbreak without providing preventive information
+186|Require the client to attend the same schedule without addressing transportation|End prenatal services because appointments were missed|Assume the client does not value prenatal care
+187|Every population has the same hypertension burden|A temporary change in one client's blood pressure|A clinic's choice of office furniture
+188|Office receptionist|Remote data-entry clerk|Indoor library cataloger
+189|Private insurance eliminates every possible out-of-pocket cost.|A monthly premium guarantees that every service is fully covered.|Private managed care is available only through Medicaid.
+190|An underinsured client has no health insurance at all.|Underinsurance means all medical expenses are fully covered.|Underinsurance is determined only by whether the client is employed.
+191|Purchase audiovisual equipment before addressing mental health needs|Replace the school mascot|Delay all services until every building repair is finished
+192|An employed adult with stable housing and strong social support|An older adult with reliable income and consistent access to care|An adult with no chronic illness and dependable support services
+193|All schools receive identical funding regardless of location.|Public schools are funded entirely by tuition from students.|Local property resources have no effect on school funding.
+194|We stopped all follow-up visits because they were inconvenient.|I have decided that no one outside the family can help us.|We will not discuss family concerns with any professional.
+195|A sprained ankle and an acute tendon tear|Appendicitis and a traumatic fracture|A cataract and an isolated muscle strain
+196|I can no longer sleep because I worry all night.|I feel more isolated since joining the group.|I have stopped asking anyone for help.
+197|Depression has no relationship to students' long-term health.|Attending a low-performing school prevents chronic illness.|Mental health concerns affect grades but never physical health.
+198|A hospital's annual operating budget|The number of school buses in the county|A clinic's staff turnover rate
+199|I can afford balanced meals every day.|I have reliable access to the amount of food my household needs.|I occasionally choose to eat later despite having enough food.
+200|A high-income client with stable housing and ready access to services|A client with reliable income and no reported access barriers|A client with extensive resources and consistent insurance coverage
+201|Ask only whether the client has any questions|Assume that reading a pamphlet proves understanding|Use a signature on a form as the only measure of learning
+202|A medical equipment rental service|A routine immunization-only clinic|An elective cosmetic surgery center
+203|Recommend ignoring grocery costs when planning the budget|Assume that skipping meals is the client's preferred lifestyle|Advise the client to stop discussing household needs
+204|The epidemiological triangle|The Transtheoretical Model|The biomedical model
+205|Culture is determined exclusively by biological ancestry.|Culture is the same for every person within a country.|Culture refers only to the language a person speaks.
+206|Provide the same approach without considering access barriers|Avoid discussing social barriers to care|Assume clinical treatment alone resolves every disparity
+207|Eliminating language assistance programs|Replacing individualized assessment with assumptions about groups|Restricting care to people who speak the dominant language
+208|Only identical cultural backgrounds|Only people with the same first language|Only people with the same religious beliefs
+209|Non-Hispanic White|American Indian and Alaska Native|Native Hawaiian and Other Pacific Islander
+210|Cultural imposition|Stereotyping|Ethnocentrism
+211|Use untranslated materials for every client|Rely on medical jargon during every visit|Limit appointments for clients who need interpreters
+212|Assuming everyone has identical beliefs and needs|Judging all cultures by the nurse's own values|Avoiding discussion of differences among individuals
+213|Why did you wait so long before seeking help?
+214|The nurse's personal preference for a different religion
+215|The clinic receptionist's favorite color
+216|The nurse's own primary language|The clinic's annual supply budget|The room number assigned to the client
+217|Eliminate individualized cultural assessment|Replace client preferences with the nurse's beliefs|Restrict cultural considerations to language only
+218|Cultural humility|Individualized cultural assessment|Cultural accommodation
+219|Hospital parking capacity|Number of medication carts|Insurance billing codes
+220|Equal representation of every group in all nursing roles|Guaranteed access to every leadership role|The complete absence of barriers to nursing education
+221|Rigid assumptions about every member of a group|Refusal to examine one's own beliefs
+222|A population with no history of mistreatment in health care|Only people who work in medical professions|Only people with private insurance coverage
+223|Racism affects politics but has no health consequences.|Racism always improves access to care.|Racism affects only one person's opinions and never communities.
+224|This dimension includes only income and employment.|This dimension refers only to age and physical development.|This dimension excludes spiritual considerations.
+225|Requiring clients to adopt the dominant culture's practices|Assuming good intentions eliminate power differences|Defining safe care solely by the provider's comfort
+226|Require all clients to follow the staff's cultural preferences
+227|Cultural care replacement by the nurse's preferred beliefs
+228|Guaranteed adherence to every treatment plan|Elimination of all health disparities|Automatic agreement about care decisions
+229|The nurse's preferred vacation destination
+230|Select an intervention before collecting information|Evaluate a program that has not been implemented|Announce conclusions without examining the community
+231|Herbicide|Fungicide|Insecticide
+232|An inherited blood type
+233|A medication reconciliation only|A surgical risk classification|An employee performance appraisal
+234|A routine occupational vaccine for malaria
+235|Leave standing water near sleeping areas|Avoid mosquito nets because they attract mosquitoes|Use antibiotics without regard to mosquito exposure
+236|Downstream|Convalescent|Postclinical
+237|They are harmless whenever used outdoors
+238|Complete every administrative report before helping people at risk|Begin long-term program evaluation before addressing immediate danger|Wait for a scheduled meeting before taking safety measures
+239|Influenza|Tuberculosis|Hepatitis B
+240|Declare that poisoning is confirmed without further evidence|Skip analysis and end the visit|Ignore the paint because the family has not reported symptoms
+241|The U.S. Census Bureau|The Occupational Safety and Health Administration|The Department of Education
+242|Only inpatient hospital room charges|Only routine dental cleanings|Only long-term custodial housing
+243|A healthy 30-year-old solely because their income is low
+245|A private hospital's fundraising board|An individual insurance broker|A neighborhood volunteer club
+246|A hospital gift shop association|A private medical equipment retailer|A local recreation league
+247|The judicial branch alone|An individual clinic manager|A private insurance company's sales department
+248|The local motor vehicle licensing office|A private gym membership desk
+249|Only private charitable donations|Only employer pension contributions|Only hospital gift shop revenue
+250|A privately owned urgent care franchise|An employer-sponsored insurance company|An independent charitable clinic with no governmental role
+251|A private pharmaceutical manufacturer|A commercial health insurance broker|An independent hospital fundraising foundation
+252|Diagnosis-related groups as a prevention intervention
+253|Offer influenza vaccination before illness occurs|Provide a general handwashing class to all employees|Arrange rehabilitation after serious influenza complications
+254|Centers for Disease Control and Prevention|Department of Health and Human Services|Food and Drug Administration
+255|CHIP based solely on adult age|Workers' compensation for every disability regardless of cause|A universal private employer plan without enrollment
+256|79.94 billion dollars|7.994 billion dollars|7,994 billion dollars
+257|They are all funded exclusively by private donations|They are all owned by the federal government|They all provide identical insurance benefits
+258|Treat only clients who already have an infection
+259|Significantly less than other developed countries|No portion of GDP|Exactly the same amount as every other country
+260|CHIP|Workers' compensation|An employer health savings account
+261|An influenza vaccination campaign for healthy employees|A general injury-prevention class before any injuries occur|A rehabilitation program after a disabling stroke
+262|The HSA replaces all health insurance coverage.|The HSA guarantees payment for every nonmedical expense.|The HSA is the same program as Medicaid.
+263|An individual's privately funded health savings account
+264|CHIP automatically covers every adult regardless of income|CHIP pays only for cosmetic services
+265|Primary prevention|Secondary prevention|Primordial prevention
+266|Health policy is limited to a hospital's employee dress code.|Health policy consists only of individual treatment preferences.|Health policy has no relationship to community outcomes.
+267|Medicaid|Traditional Medicare|CHIP
+268|A private insurer's sales representatives|The hospital cafeteria committee|Medical equipment vendors
+269|John F. Kennedy|Richard Nixon|Dwight D. Eisenhower
+270|Traditional Medicare|The Food and Drug Administration|The Centers for Disease Control and Prevention
